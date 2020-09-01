@@ -18,6 +18,7 @@ private:
 
 private:
     static std::string convert_to_password(size_t number);
+    static std::vector<size_t> get_shift_per_thread();
 };
 
 #endif  // PROJECT_BRUTEFORCER_BRUTEFORCER_HPP_
