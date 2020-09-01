@@ -12,4 +12,6 @@ target_link_libraries(BruteForcerLib PUBLIC MD5hasherLib Threads::Threads)
 target_include_directories(BruteForcerLib PRIVATE ../MD5hasher)
 
 add_executable(BruteForcerTest BruteForcerTest.cpp)
+set_target_properties(BruteForcerTest PROPERTIES LINK_FLAGS --coverage)
+set_target_properties(BruteForcerTest PROPERTIES COMPILE_FLAGS --coverage)
 target_link_libraries(BruteForcerTest BruteForcerLib GTest::GTest)

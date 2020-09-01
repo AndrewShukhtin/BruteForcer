@@ -8,4 +8,6 @@ add_library(MD5hasherLib STATIC MD5hasher.hpp MD5hasher.cpp)
 target_link_libraries(MD5hasherLib PRIVATE OpenSSL::SSL)
 
 add_executable(MD5hasherTest MD5hasherTest.cpp)
+set_target_properties(MD5hasherTest PROPERTIES LINK_FLAGS --coverage)
+set_target_properties(MD5hasherTest PROPERTIES COMPILE_FLAGS --coverage)
 target_link_libraries(MD5hasherTest MD5hasherLib GTest::GTest)
