@@ -24,7 +24,7 @@ std::pair<bool, std::string> BruteForcer::findPassword(const std::string& hashed
 }
 
 std::pair<bool, std::string> BruteForcer::parallel_find_passwd(const std::string& hashedPasswd) {
-    auto task = [hashedPasswd](const auto startNumber, const auto endNumber) -> std::pair<bool, std::string> {
+    auto handler = [hashedPasswd](const size_t startNumber, const size_t endNumber) -> std::pair<bool, std::string> {
         MD5Hasher hasher;
         for (size_t currentNumber = startNumber; currentNumber < endNumber; ++currentNumber) {
             auto currentPasswd = convert_to_password(currentNumber);
@@ -48,7 +48,7 @@ std::pair<bool, std::string> BruteForcer::parallel_find_passwd(const std::string
 
     std::vector<std::future<std::pair<bool, std::string>>> futures;
     for (size_t i = 1; i < shifts.size(); ++i) {
-        futures.push_back(std::async(std::launch::async, task, shifts[i - 1], shifts[i]));
+        futures.push_back(std::async(std::launch::async, handler, shifts[i - 1], shifts[i]));
     }
 
     for (auto& future : futures) {
@@ -74,15 +74,16 @@ std::pair<bool, std::string> BruteForcer::sequential_find_passwd(const std::stri
 }
 
 static std::vector<size_t> getShitfPerThread() {
-    size_t numberOfThreads = std::thread::hardware_concurrency();
+    const size_t numberOfThreads = std::thread::hardware_concurrency();
     if (numberOfThreads == 0) {
         return {};
     }
 
-    bool isDividable = VARIANTS_COUNT % numberOfThreads == 0;
+    const size_t numberOfsegments = numberOfThreads + 1;
+    bool isDividable = VARIANTS_COUNT % numberOfsegments == 0;
     size_t shift = (isDividable ?
-                        VARIANTS_COUNT / numberOfThreads :
-                        VARIANTS_COUNT / numberOfThreads + 1);
+                        VARIANTS_COUNT / numberOfsegments :
+                        VARIANTS_COUNT / numberOfsegments + 1);
 
     std::vector<size_t> shifts;
     size_t counter = 0;
