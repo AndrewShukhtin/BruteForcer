@@ -9,7 +9,7 @@ compiler: gcc
 
 env:
   global:
-    - CODECOV_TOKEN="83d8152e-4406-4ced-8d01-5782b464d196"
+    - CODECOV_TOKEN="aae32808-a8e5-4798-b871-3ac60d4539fc"
 
 install:
     - sudo apt-get update
