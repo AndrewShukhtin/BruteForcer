@@ -6,6 +6,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_CXX_FLAGS "-O2 -Wall")
 
+find_package(GTest REQUIRED)
+include_directories(${GTEST_INLCUDE_DIR})
+
 add_subdirectory(project/BruteForcer)
 add_subdirectory(project/MD5hasher)
 
