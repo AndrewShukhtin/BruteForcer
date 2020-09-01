@@ -1,7 +1,7 @@
 dist:     bionic
 sudo:     required
 
-language: c
+language: cpp
 
 os: linux
 
