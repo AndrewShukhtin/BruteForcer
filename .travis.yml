@@ -44,3 +44,4 @@ install:
     after_script:
     - lcov --capture --directory ./build/project/BruteForcer/CMakeFiles/BruteForcerTest.dir --output-file coverage.info
     - lcov --capture --directory ./build/project/MD5hasher/CMakeFiles/MD5hasherTest.dir --output-file coverage.info
+    - bash <(curl -s https://codecov.io/bash)
